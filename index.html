@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guia de Stories da Mari</title>
+<meta name="theme-color" content="#672d55">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Guia da Mari">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon192.png">
+<link rel="icon" href="icon192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ameixa:#672d55;--rosa:#e0bfd2;--nevoa:#e5dde2;--noite:#101820;--fundo:#f7f3f5;--cinza:#6b6470;--verde:#2f6b4f;--verdeclaro:#e3efe8;--verm:#8a2f3b;--vermclaro:#f5e3e6}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:Poppins,system-ui,sans-serif;background:var(--fundo);color:var(--noite);font-size:17px;line-height:1.5;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+h1,h2,h3{font-family:Lora,Georgia,serif;font-weight:600;margin:0;line-height:1.25}
+header{background:var(--ameixa);color:#fff;padding:calc(18px + env(safe-area-inset-top)) 20px 22px}
+header .sub{font-size:14px;opacity:.85;margin-top:4px}
+header h1{font-size:26px}
+header .brilho{color:var(--rosa)}
+main{max-width:640px;margin:0 auto;padding:0 14px}
+section{display:none;padding-top:18px}
+section.on{display:block}
+.card{background:#fff;border-radius:18px;padding:18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(16,24,32,.06)}
+.card h2{font-size:21px;color:var(--ameixa);margin-bottom:8px}
+.card h3{font-size:17px;margin-bottom:2px}
+.muted{color:var(--cinza);font-size:14px}
+.lead{font-size:16px;margin:0 0 12px}
+/* progresso */
+.prog{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
+.bar{flex:1;height:10px;background:var(--nevoa);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ameixa);border-radius:99px;transition:width .3s}
+.prog b{font-size:15px;color:var(--ameixa);min-width:44px;text-align:right}
+/* tarefas */
+.task{display:flex;gap:14px;align-items:flex-start;padding:14px 4px;border-top:1px solid var(--nevoa);cursor:pointer;user-select:none}
+.task:first-of-type{border-top:0}
+.box{flex:0 0 30px;height:30px;border:2px solid var(--ameixa);border-radius:9px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.box svg{width:18px;height:18px;opacity:0}
+.task.done .box{background:var(--ameixa)}
+.task.done .box svg{opacity:1}
+.task.done .txt{color:var(--cinza);text-decoration:line-through}
+.txt{padding-top:2px}
+.ok{background:var(--verdeclaro);color:var(--verde);border-radius:12px;padding:10px 14px;font-size:15px;margin-top:10px;display:none}
+/* regras */
+.regra{display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--nevoa)}
+.regra:first-of-type{border-top:0}
+.num{flex:0 0 34px;height:34px;border-radius:50%;background:var(--ameixa);color:#fff;font-family:Lora,serif;font-weight:600;display:flex;align-items:center;justify-content:center;font-size:17px}
+/* numeros */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kpi{background:var(--fundo);border-radius:14px;padding:12px}
+.kpi .v{font-family:Lora,serif;font-size:28px;font-weight:600;color:var(--ameixa);line-height:1.1}
+.kpi .l{font-size:13px;color:var(--cinza)}
+.kpi .d{font-size:13px;font-weight:500}
+.up{color:var(--verde)}.down{color:var(--verm)}
+.cidade{margin:10px 0}
+.cidade .top{display:flex;justify-content:space-between;font-size:15px}
+.cidade .bar{height:12px;margin-top:4px}
+.cidade.alvo .bar i{background:var(--ameixa)}
+.cidade.fora .bar i{background:#b9aab3}
+/* mix */
+.tipo{padding:12px 0;border-top:1px solid var(--nevoa)}
+.tipo:first-of-type{border-top:0}
+.tipo .bar{height:12px;margin:6px 0 4px}
+.tipo .meta{display:flex;justify-content:space-between;font-size:13px;color:var(--cinza)}
+.pill{display:inline-block;background:var(--nevoa);color:var(--ameixa);border-radius:99px;padding:2px 10px;font-size:13px;font-weight:500;margin-top:4px}
+/* listas */
+.item{padding:10px 0;border-top:1px solid var(--nevoa)}
+.item:first-of-type{border-top:0}
+.hora{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--nevoa)}
+.hora:first-of-type{border-top:0}
+.hora b{flex:0 0 118px;color:var(--ameixa);font-weight:600;font-size:15px}
+.duas{display:grid;gap:14px}
+.li{display:flex;gap:10px;padding:8px 0;font-size:16px}
+.li span{flex:0 0 26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px}
+.sim span{background:var(--verdeclaro);color:var(--verde)}
+.nao span{background:var(--vermclaro);color:var(--verm)}
+.reel{padding:12px 0;border-top:1px solid var(--nevoa)}
+.reel:first-of-type{border-top:0}
+.reel .ln{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;color:var(--cinza);margin-top:4px}
+.reel .ln b{color:var(--noite);font-weight:600}
+a{color:var(--ameixa)}
+/* nav */
+nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--nevoa);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:5}
+nav button{flex:1;border:0;background:none;font-family:Poppins,sans-serif;font-size:12px;color:var(--cinza);padding:6px 2px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
+nav button svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8}
+nav button.on{color:var(--ameixa);font-weight:600}
+.status{font-size:13px;color:var(--cinza);text-align:center;margin:6px 0 18px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Guia de Stories <span class="brilho">✦</span></h1>
+  <div class="sub" id="sub">Carregando…</div>
+</header>
+<main>
+  <section id="semana" class="on"></section>
+  <section id="regras"></section>
+  <section id="numeros"></section>
+  <section id="guia"></section>
+  <div class="status" id="status"></div>
+</main>
+<nav>
+  <button data-t="semana" class="on"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>Semana</button>
+  <button data-t="regras"><svg viewBox="0 0 24 24"><path d="M12 3l2.4 5.6L20 9.3l-4.3 3.9 1.2 5.8L12 16.1 7.1 19l1.2-5.8L4 9.3l5.6-.7z"/></svg>Regras</button>
+  <button data-t="numeros"><svg viewBox="0 0 24 24"><path d="M5 20V11M12 20V5M19 20v-6"/></svg>Números</button>
+  <button data-t="guia"><svg viewBox="0 0 24 24"><path d="M5 4h10l4 4v12H5z"/><path d="M9 12h6M9 16h6"/></svg>Guia</button>
+</nav>
+<script>
+(function(){
+var DADOS='https://n8n.gontify.com.br/webhook/guia-mari?f=dados';
+var CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function fmt(n,d){if(n==null||n===''||isNaN(n))return '–';return Number(n).toLocaleString('pt-BR',{maximumFractionDigits:d==null?0:d})}
+function lsGet(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+// navegação
+var btns=document.querySelectorAll('nav button');
+function show(t){btns.forEach(function(b){b.classList.toggle('on',b.dataset.t===t)});document.querySelectorAll('section').forEach(function(s){s.classList.toggle('on',s.id===t)});window.scrollTo(0,0);lsSet('guia-mari:aba',t)}
+btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t)})});
+
+function renderSemana(c){
+  var key='guia-mari:check:'+c.semana, feitos=lsGet(key)||{};
+  var h='<div class="card"><h2>Foco da semana</h2><p class="muted" style="margin:0 0 8px">'+esc(c.periodo)+'</p><p class="lead">'+esc(c.foco.teste)+'</p>'+
+    '<div class="prog"><div class="bar"><i id="pbar"></i></div><b id="ptxt"></b></div>';
+  c.foco.tarefas.forEach(function(t){h+='<div class="task'+(feitos[t.id]?' done':'')+'" data-id="'+esc(t.id)+'"><div class="box">'+CHECK+'</div><div class="txt">'+esc(t.texto)+'</div></div>'});
+  h+='<div class="ok" id="ok">Semana completa! Ótimo trabalho, Mari. 💜</div></div>';
+  h+='<div class="card"><h2>Antes de postar, pergunte</h2>'+
+    '<div class="li sim"><span>1</span><div>Isso fala com alguém de Poços ou Vargem?</div></div>'+
+    '<div class="li sim"><span>2</span><div>Tem uma pergunta, enquete ou marcação?</div></div>'+
+    '<div class="li sim"><span>3</span><div>Se é sobre vaga: tem o link do WhatsApp?</div></div></div>';
+  var s=document.getElementById('semana');s.innerHTML=h;
+  function upd(){var tot=c.foco.tarefas.length,n=c.foco.tarefas.filter(function(t){return feitos[t.id]}).length;document.getElementById('pbar').style.width=(tot?n/tot*100:0)+'%';document.getElementById('ptxt').textContent=n+'/'+tot;document.getElementById('ok').style.display=(n===tot&&tot)?'block':'none'}
+  s.querySelectorAll('.task').forEach(function(el){el.addEventListener('click',function(){var id=el.dataset.id;feitos[id]=!feitos[id];if(!feitos[id])delete feitos[id];el.classList.toggle('done',!!feitos[id]);lsSet(key,feitos);upd();if(navigator.vibrate)try{navigator.vibrate(15)}catch(e){}})});
+  upd();
+}
+
+function renderRegras(c){
+  var h='<div class="card"><h2>As 5 regras de ouro</h2>';
+  c.regras.forEach(function(r,i){h+='<div class="regra"><div class="num">'+(i+1)+'</div><div><h3>'+esc(r.t)+'</h3><div class="muted" style="font-size:15px">'+esc(r.d)+'</div></div></div>'});
+  h+='</div><div class="card"><h2>Reforce</h2>';
+  c.reforcar.forEach(function(x){h+='<div class="li sim"><span>✓</span><div>'+esc(x)+'</div></div>'});
+  h+='</div><div class="card"><h2>Evite</h2>';
+  c.evitar.forEach(function(x){h+='<div class="li nao"><span>✕</span><div>'+esc(x)+'</div></div>'});
+  h+='</div>';
+  document.getElementById('regras').innerHTML=h;
+}
+
+function delta(v,a){if(a==null||v==null||v===''||a==='')return '';var d=Number(v)-Number(a);if(!d)return '<div class="d muted">igual à semana anterior</div>';return '<div class="d '+(d>0?'up':'down')+'">'+(d>0?'+':'')+fmt(d)+' na semana</div>'}
+
+function renderNumeros(n){
+  var h='';
+  if(!n){document.getElementById('numeros').innerHTML='<div class="card"><h2>Seus números</h2><p class="muted">Ainda sem dados. Abra com internet para carregar.</p></div>';return}
+  var st=n.stories7||{};
+  h+='<div class="card"><h2>Seus stories · últimos 7 dias</h2><div class="grid">'+
+    '<div class="kpi"><div class="v">'+fmt(st.qtd)+'</div><div class="l">stories postados</div></div>'+
+    '<div class="kpi"><div class="v">'+fmt(st.alcanceMedio)+'</div><div class="l">pessoas por story (média)</div></div>'+
+    '<div class="kpi"><div class="v">'+fmt(st.respostas)+'</div><div class="l">respostas no total</div></div>'+
+    '<div class="kpi"><div class="v">'+fmt(st.visitasPerfil)+'</div><div class="l">visitas ao perfil</div></div></div>';
+  if(st.melhor){h+='<p style="margin:14px 0 0"><b>Story que mais alcançou:</b> '+esc(st.melhor.data)+' · '+fmt(st.melhor.alcance)+' pessoas'+(st.melhor.legenda?'<br><span class="muted">"'+esc(st.melhor.legenda)+'"</span>':'')+(st.melhor.link?' <a href="'+esc(st.melhor.link)+'" target="_blank" rel="noopener">ver</a>':'')+'</p>'}
+  if(st.qtd<7)h+='<p class="muted" style="margin:10px 0 0">A coleta começou em 25/11. A média fica mais confiável com mais dias.</p>';
+  h+='</div>';
+  var c=n.conta;
+  if(c){
+    var max=Math.max(c.pocos||0,c.vargem||0,c.udi||0,1),a=c.anterior||{};
+    h+='<div class="card"><h2>Seus seguidores</h2><div class="kpi" style="margin-bottom:10px"><div class="v">'+fmt(c.seguidores)+'</div><div class="l">seguidores em '+esc(c.data)+'</div>'+delta(c.seguidores,a.seguidores)+'</div>';
+    [['Poços de Caldas',c.pocos,a.pocos,'alvo'],['Vargem Grande do Sul',c.vargem,a.vargem,'alvo'],['Uberlândia',c.udi,a.udi,'fora']].forEach(function(x){
+      h+='<div class="cidade '+x[3]+'"><div class="top"><span>'+x[0]+'</span><b>'+fmt(x[1])+'</b></div><div class="bar"><i style="width:'+((x[1]||0)/max*100)+'%"></i></div>'+delta(x[1],x[2])+'</div>'});
+    h+='<p class="muted" style="margin:6px 0 0">A meta é Poços e Vargem crescerem toda semana.</p></div>';
+  }
+  if(n.reels&&n.reels.length){
+    h+='<div class="card"><h2>Seus últimos Reels</h2>';
+    n.reels.forEach(function(r){h+='<div class="reel"><h3 style="font-family:Poppins,sans-serif;font-weight:600;font-size:16px">'+esc(r.titulo)+'</h3><div class="muted">'+esc(r.data)+'</div><div class="ln"><span><b>'+fmt(r.alcance)+'</b> pessoas</span><span><b>'+fmt(r.tempo_medio_s,1)+' s</b> assistidos em média</span><span><b>'+fmt(r.taxa_pulo,0)+'%</b> pularam no início</span></div></div>'});
+    h+='<p class="muted" style="margin:6px 0 0">Quanto menos gente pula no início, melhor foi o gancho.</p></div>';
+  }
+  document.getElementById('numeros').innerHTML=h;
+}
+
+function renderGuia(c){
+  var h='<div class="card"><h2>Para quem falar</h2><p class="lead">'+esc(c.publico.texto)+'</p>';
+  c.publico.itens.forEach(function(x){h+='<div class="item">'+esc(x)+'</div>'});
+  h+='</div><div class="card"><h2>O que postar</h2><p class="lead">'+esc(c.mix.texto)+'</p>';
+  var max=Math.max.apply(null,c.mix.tipos.map(function(t){return t.alcance||0}));
+  c.mix.tipos.forEach(function(t){h+='<div class="tipo"><h3>'+esc(t.tipo)+'</h3><div class="muted">'+esc(t.exemplo)+'</div><div class="bar"><i style="width:'+((t.alcance||0)/max*100)+'%"></i></div><div class="meta"><span>'+esc(t.alcanceTxt||fmt(t.alcance))+' pessoas por story</span><span>'+(t.respostas==null?'':fmt(t.respostas,1)+' respostas')+'</span></div><span class="pill">'+esc(t.uso)+'</span></div>'});
+  h+='<p class="muted" style="margin:8px 0 0">Médias de '+esc(c.mix.periodo)+'.</p></div>';
+  h+='<div class="card"><h2>Como fazer</h2>';
+  c.como.forEach(function(x){h+='<div class="item"><h3>'+esc(x.t)+'</h3><div class="muted" style="font-size:15px">'+esc(x.d)+'</div></div>'});
+  h+='</div><div class="card"><h2>Quantos e quando</h2><p class="lead">'+esc(c.frequencia)+'</p>';
+  c.horarios.forEach(function(x){h+='<div class="hora"><b>'+esc(x.momento)+'</b><div>'+esc(x.oque)+'</div></div>'});
+  h+='</div>';
+  document.getElementById('guia').innerHTML=h;
+}
+
+function render(d){
+  var c=d.conteudo;
+  document.getElementById('sub').textContent='Semana de '+c.periodo+' · atualizado em '+c.atualizado;
+  renderSemana(c);renderRegras(c);renderNumeros(d.numeros);renderGuia(c);
+}
+
+var cache=lsGet('guia-mari:dados');
+if(cache)render(cache);
+var aba=lsGet('guia-mari:aba');if(aba&&document.getElementById(aba))show(aba);
+var st=document.getElementById('status');
+st.textContent=cache?'Atualizando…':'Carregando…';
+fetch(DADOS,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
+  lsSet('guia-mari:dados',d);render(d);st.textContent='Números de '+(d.geradoEm||'agora');
+}).catch(function(){st.textContent=cache?'Sem internet: mostrando a última versão salva.':'Não consegui carregar. Verifique a internet.'});
+
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
+})();
+</script>
+</body>
+</html>
